@@ -25,10 +25,6 @@ export default {
         sans: "var(--font-sans)",
         serif: "var(--font-serif)",
       },
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
     },
   },
   plugins: [],
