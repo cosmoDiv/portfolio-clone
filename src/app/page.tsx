@@ -1,9 +1,9 @@
+import { AboutSection } from "@/sections/About";
 import { Header } from "@/sections/Header";
-import { HeroSection } from "@/sections/HeroSection";
-import { ProjectsSection } from "@/sections/ProjectsSection";
-import { TapeSection } from "@/sections/TapeSection";
-import { TestimonialsSection } from "@/sections/TestimonialsSection";
-import Image from "next/image";
+import { HeroSection } from "@/sections/Hero";
+import { ProjectsSection } from "@/sections/Projects";
+import { TapeSection } from "@/sections/Tape";
+import { TestimonialsSection } from "@/sections/Testimonials";
 
 export default function Home() {
   return (
@@ -13,6 +13,7 @@ export default function Home() {
       <ProjectsSection />
       <TapeSection />
       <TestimonialsSection />
+      <AboutSection />
     </div>
   );
 }
