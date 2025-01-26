@@ -1,11 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  useForm,
-  type ControllerRenderProps,
-  FieldValues,
-} from "react-hook-form";
+import { useForm, type ControllerRenderProps } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -20,7 +16,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Header } from "@/sections/Header";
 
 const formSchema = z.object({
   name: z.string().min(2, {
