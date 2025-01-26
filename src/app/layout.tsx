@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Calistoga } from "next/font/google";
 import "./globals.css";
 import { twMerge } from "tailwind-merge";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={twMerge(
           inter.variable,
@@ -34,6 +35,7 @@ export default function RootLayout({
         )}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );
