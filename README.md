@@ -1,4 +1,4 @@
-This is a portfolio clone project using [Next.js](https://nextjs.org), [TailwindCss](https://tailwindcss.com/) project is from a youtuber [Frontend Tribe](https://www.youtube.com/@frontend-tribe).
+This is a portfolio clone project using [Next.js](https://nextjs.org) and [TailwindCss](https://tailwindcss.com/) from a youtuber [Frontend Tribe](https://www.youtube.com/@frontend-tribe).
 
 ## Getting Started
 
