@@ -58,7 +58,8 @@ export default function ContactForm() {
         title: "Message sent!",
         description: "We'll get back to you as soon as possible.",
       });
-    } catch (_error) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
       toast({
         title: "Error",
         description:
