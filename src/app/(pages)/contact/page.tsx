@@ -18,8 +18,8 @@ import {
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+  name: z.string().min(6, {
+    message: "Name must be at least 6 characters.",
   }),
   email: z.string().email({
     message: "Please enter a valid email address.",
@@ -58,7 +58,7 @@ export default function ContactForm() {
         title: "Message sent!",
         description: "We'll get back to you as soon as possible.",
       });
-    } catch (error) {
+    } catch (_error) {
       toast({
         title: "Error",
         description:
@@ -73,104 +73,95 @@ export default function ContactForm() {
   const { toast } = useToast();
 
   return (
-    <div>
-      <div className="py-20  lg:py-50">
-        <div className="container flex justify-center items-center">
-          <div className="max-w-[300px] md:max-w-md w-full mx-auto">
-            <h2 className="text-3xl font-bold mb-6 text-center font-serif">
-              Contact Me
-            </h2>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6"
+    <div className="py-20  lg:py-50">
+      <div className="container flex justify-center items-center">
+        <div className="max-w-[300px] md:max-w-md w-full mx-auto">
+          <h2 className="text-3xl font-bold mb-6 text-center font-serif">
+            Contact Me
+          </h2>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({
+                  field,
+                }: {
+                  field: ControllerRenderProps<FormValues, "name">;
+                }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({
+                  field,
+                }: {
+                  field: ControllerRenderProps<FormValues, "email">;
+                }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your email" type="email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="subject"
+                render={({
+                  field,
+                }: {
+                  field: ControllerRenderProps<FormValues, "subject">;
+                }) => (
+                  <FormItem>
+                    <FormLabel>Subject</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Message subject" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="message"
+                render={({
+                  field,
+                }: {
+                  field: ControllerRenderProps<FormValues, "message">;
+                }) => (
+                  <FormItem>
+                    <FormLabel>Message</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Your message"
+                        className="resize-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button
+                type="submit"
+                className="border border-white bg-white text-gray-900 h-12 px-6 rounded-xl w-full hover:bg-white/70 hover:text-gray-900/90"
+                disabled={isSubmitting}
               >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({
-                    field,
-                  }: {
-                    field: ControllerRenderProps<FormValues, "name">;
-                  }) => (
-                    <FormItem>
-                      <FormLabel>Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Your name" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({
-                    field,
-                  }: {
-                    field: ControllerRenderProps<FormValues, "email">;
-                  }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Your email"
-                          type="email"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="subject"
-                  render={({
-                    field,
-                  }: {
-                    field: ControllerRenderProps<FormValues, "subject">;
-                  }) => (
-                    <FormItem>
-                      <FormLabel>Subject</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Message subject" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({
-                    field,
-                  }: {
-                    field: ControllerRenderProps<FormValues, "message">;
-                  }) => (
-                    <FormItem>
-                      <FormLabel>Message</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Your message"
-                          className="resize-none"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="submit"
-                  className="border border-white bg-white text-gray-900 h-12 px-6 rounded-xl w-full hover:bg-white/70 hover:text-gray-900/90"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
-            </Form>
-          </div>
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </Button>
+            </form>
+          </Form>
         </div>
       </div>
     </div>
