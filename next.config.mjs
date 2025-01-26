@@ -6,10 +6,6 @@ const nextConfig = {
           loaders: ["@svgr/webpack"],
           as: "*.js",
         },
-        "@typescript-eslint/no-unused-vars": [
-          "error",
-          { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
-        ],
       },
     },
   },
