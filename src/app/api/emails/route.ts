@@ -35,12 +35,16 @@ export async function POST(request: Request) {
         headers: { "Content-Type": "application/json" },
       }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error sending email:", error);
+
+    // Type assertion for error handling
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred";
 
     // Return error response
     return new Response(
-      JSON.stringify({ message: "Failed to send email", error: error.message }),
+      JSON.stringify({ message: "Failed to send email", error: errorMessage }),
       {
         status: 500,
         headers: { "Content-Type": "application/json" },
