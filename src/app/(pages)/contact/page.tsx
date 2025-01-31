@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(6, {
@@ -35,7 +36,8 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -47,19 +49,39 @@ export default function ContactForm() {
     },
   });
 
+  const { toast } = useToast();
+
   const onSubmit = async (values: FormValues) => {
     setIsSubmitting(true);
-    // Simulate API call
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log(values);
-      form.reset();
-      toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
+      const response = await fetch("/api/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
       });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+      // Log the full response
+      console.log("API response:", response);
+
+      if (response.ok) {
+        toast({
+          title: "Message sent!",
+          description: "We'll get back to you as soon as possible.",
+        });
+        router.push("/"); // Redirect if needed
+        form.reset();
+      } else {
+        const errorData = await response.json();
+        console.error("Error response:", errorData);
+        throw new Error(
+          "Failed to send message: " + (errorData.message || "Unknown error")
+        );
+      }
     } catch (error) {
+      console.error("Error submitting form:", error);
       toast({
         title: "Error",
         description:
@@ -70,11 +92,8 @@ export default function ContactForm() {
       setIsSubmitting(false);
     }
   };
-
-  const { toast } = useToast();
-
   return (
-    <div className="py-20  lg:py-50">
+    <div className="py-20 lg:py-50">
       <div className="container flex justify-center items-center">
         <div className="max-w-[300px] md:max-w-md w-full mx-auto">
           <h2 className="text-3xl font-bold mb-6 text-center font-serif">
