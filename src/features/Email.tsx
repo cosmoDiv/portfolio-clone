@@ -1,12 +1,4 @@
-import {
-  Button,
-  Html,
-  Text,
-  Heading,
-  Section,
-  Img,
-  Hr,
-} from "@react-email/components";
+import { Button, Html, Text, Heading, Img } from "@react-email/components";
 interface EmailProps {
   name: string;
   email: string;
@@ -14,7 +6,7 @@ interface EmailProps {
   subject: string;
 }
 
-const Email = ({ name, email, message, subject }: EmailProps) => {
+const Email = ({ name, message, subject }: EmailProps) => {
   return (
     <Html>
       <div
